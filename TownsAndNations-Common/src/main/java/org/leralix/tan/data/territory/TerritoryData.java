@@ -550,6 +550,48 @@ public abstract class TerritoryData implements TanTerritory, Territory {
      */
     protected abstract void abstractClaimChunk(Chunk chunk, boolean ignoreAdjacent);
 
+    protected boolean canClaimChunk(Player player, ITanPlayer tanPlayer, Chunk chunk, boolean ignoreAdjacent) {
+
+        if (ClaimBlacklistStorage.cannotBeClaimed(chunk)) {
+            TanChatUtils.message(player, Lang.CHUNK_IS_BLACKLISTED.get(tanPlayer.getLang()));
+            return false;
+        }
+
+        if (!doesPlayerHavePermission(tanPlayer, RolePermission.CLAIM_CHUNK)) {
+            TanChatUtils.message(player, Lang.PLAYER_NO_PERMISSION.get(tanPlayer.getLang()));
+            return false;
+        }
+
+        TerritoryStats territoryStats = getNewLevel();
+        int nbOfClaimedChunks = getNumberOfClaimedChunk();
+
+        //if (!territoryStats.getStat(BiomeStat.class).canClaimBiome(chunk)) {
+        //    TanChatUtils.message(player, Lang.CHUNK_BIOME_NOT_ALLOWED.get(tanPlayer.getLang()));
+        //    return false;
+        //}
+
+        if (!territoryStats.getStat(ChunkCap.class).canDoAction(nbOfClaimedChunks)) {
+            TanChatUtils.message(player, Lang.MAX_CHUNK_LIMIT_REACHED.get(tanPlayer.getLang()));
+            return false;
+        }
+
+        int cost = getClaimCost();
+        if (getBalance() < cost) {
+            TanChatUtils.message(player, Lang.TERRITORY_NOT_ENOUGH_MONEY.get(tanPlayer.getLang(), getColoredName(), Double.toString(cost - getBalance())));
+            return false;
+        }
+
+        IClaimedChunk chunkData = TownsAndNations.getPlugin().getClaimStorage().get(chunk);
+        if (!chunkData.canTerritoryClaim(player, this,  tanPlayer.getLang())) {
+            return false;
+        }
+
+        if (ignoreAdjacent) {
+            return true;
+        }
+        return isPositionClaimable(player, chunk, chunkData, tanPlayer.getLang());
+    }
+
     /**
      * Check if the chunk can be claimed
      *
