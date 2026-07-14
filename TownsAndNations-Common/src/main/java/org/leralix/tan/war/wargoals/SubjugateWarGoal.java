@@ -19,14 +19,6 @@ public class SubjugateWarGoal extends WarGoal implements TanSubjugateWargoal {
         super();
     }
 
-    private Material getChainMaterial() {
-        try {
-            return Material.valueOf("CHAIN");
-        } catch (IllegalArgumentException e) {
-            return Material.valueOf("IRON_CHAIN");
-        }
-    }
-
     @Override
     public IconBuilder getIcon(LangType langType) {
 
@@ -34,7 +26,7 @@ public class SubjugateWarGoal extends WarGoal implements TanSubjugateWargoal {
         description.add(Lang.SUBJUGATE_WAR_GOAL_DESC.get());
         description.add(Lang.SUBJUGATE_WAR_GOAL_DESC1.get());
 
-        return buildIcon(getChainMaterial(), description, langType);
+        return buildIcon(Material.IRON_CHAIN, description, langType);
     }
 
     @Override
@@ -47,27 +39,10 @@ public class SubjugateWarGoal extends WarGoal implements TanSubjugateWargoal {
         if (territoryToSubjugate == null || winner == null)
             return;
 
-        if (winner instanceof Nation && territoryToSubjugate instanceof Town) {
-            if (territoryToSubjugate.haveOverlord()) {
-                territoryToSubjugate.removeOverlord();
-            }
-            territoryToSubjugate.setOverlord(winner.getCapital());
+        if (territoryToSubjugate.haveOverlord()) {
+            territoryToSubjugate.removeOverlord();
         }
-
-        if (winner instanceof Nation && territoryToSubjugate instanceof Region) {
-            if (territoryToSubjugate.haveOverlord()) {
-                territoryToSubjugate.removeOverlord();
-            }
-            territoryToSubjugate.setOverlord(winner);
-        }
-
-        if (winner instanceof Nation && territoryToSubjugate instanceof Nation) {
-            for (Territory vassal : territoryToSubjugate.getVassals()) {
-                vassal.removeOverlord();
-                vassal.setOverlord(winner);
-            }
-            territoryToSubjugate.delete();
-        }
+        territoryToSubjugate.setOverlord(winner);
 
         EventManager.getInstance().callEvent(new TerritoryVassalForcedInternalEvent(
                 territoryToSubjugate,
