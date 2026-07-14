@@ -145,9 +145,7 @@ public class ChunkListener implements Listener {
         ItemStack itemInHand = event.getItem();
         if(itemInHand != null &&
                 (MaterialTags.SPAWN_EGGS.isTagged(itemInHand.getType()) ||
-                itemInHand.getType() == Material.EGG ||
-                itemInHand.getType() == Material.BROWN_EGG||
-                itemInHand.getType() == Material.BLUE_EGG) && !canPlayerDoAction(player.getLocation(), player, ChunkPermissionType.USE_EGGS)
+                itemInHand.getType() == Material.EGG) && !canPlayerDoAction(player.getLocation(), player, ChunkPermissionType.USE_EGGS)
         ){
             event.setCancelled(true);
             return;
