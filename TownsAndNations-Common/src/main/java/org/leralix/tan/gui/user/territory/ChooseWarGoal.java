@@ -141,8 +141,8 @@ public class ChooseWarGoal extends BasicGui {
     private @NotNull GuiItem getSubjugateButton() {
 
         boolean canBeSubjugated = warRole == WarRole.MAIN_ATTACKER
-                ? war.getMainDefender().getHierarchyRank() < territoryData.getHierarchyRank()
-                : war.getMainAttacker().getHierarchyRank() < territoryData.getHierarchyRank();
+                ? war.getMainDefender().getHierarchyRank() != 0 && war.getMainDefender().getHierarchyRank() == territoryData.getHierarchyRank()
+                : war.getMainAttacker().getHierarchyRank() != 0 && war.getMainAttacker().getHierarchyRank() == territoryData.getHierarchyRank();
 
         return iconManager.get(IconKey.WAR_GOAL_SUBJUGATE_ICON)
                 .setName(Lang.SUBJUGATE_WAR_GOAL.get(langType))
