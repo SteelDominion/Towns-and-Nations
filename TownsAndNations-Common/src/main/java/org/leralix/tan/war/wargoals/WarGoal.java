@@ -37,4 +37,6 @@ public abstract class WarGoal implements TanWargoal {
 
     public abstract String getCurrentDesc(LangType langType);
 
+    public abstract String getWarGoalType();
+
 }

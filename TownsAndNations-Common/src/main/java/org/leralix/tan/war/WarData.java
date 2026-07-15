@@ -123,13 +123,22 @@ public class WarData implements War{
 
         List<WarGoal> goals = getGoals(looserTerritory.opposite());
 
+        Boolean nationFallen = false;
+
         for (WarGoal goal : goals) {
             goal.applyWarGoal(winner, looser);
+            String warGoalType = goal.getWarGoalType();
+            if (warGoalType != null && warGoalType == "Subjugation") {
+                nationFallen = true;
+            }
         }
 
         EventManager.getInstance().callEvent(new WarEndInternalEvent(winner, looser, goals));
 
         endWar();
+        if (nationFallen == true) {
+            looser.delete();
+        }
     }
 
     @Override

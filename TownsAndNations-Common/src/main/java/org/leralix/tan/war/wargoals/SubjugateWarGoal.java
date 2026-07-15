@@ -57,7 +57,6 @@ public class SubjugateWarGoal extends WarGoal implements TanSubjugateWargoal {
                 vassal.removeOverlord();
                 vassal.setOverlord(winner);
             }
-            //territoryToSubjugate.delete();
         }
 
         EventManager.getInstance().callEvent(new TerritoryVassalForcedInternalEvent(
@@ -69,6 +68,11 @@ public class SubjugateWarGoal extends WarGoal implements TanSubjugateWargoal {
     @Override
     public String getCurrentDesc(LangType langType) {
         return Lang.GUI_WARGOAL_SUBJUGATE_WAR_GOAL_RESULT.get(langType);
+    }
+
+    @Override
+    public String getWarGoalType() {
+        return "Subjugation";
     }
 
 }
