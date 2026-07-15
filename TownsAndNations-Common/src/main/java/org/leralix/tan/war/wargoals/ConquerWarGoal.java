@@ -49,6 +49,11 @@ public class ConquerWarGoal extends WarGoal implements TanCaptureChunkWargoal {
     }
 
     @Override
+    public String getWarGoalType() {
+        return "Conquer";
+    }
+
+    @Override
     public int getAmount() {
         return numberOfChunks;
     }
