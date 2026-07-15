@@ -59,11 +59,34 @@ public class WarDatabaseStorage extends DatabaseStorage<WarDatabase, WarData> im
             TerritoryUtil.setRelation(alliedTerritory, attackingTerritory, TownRelation.WAR);
         }
 
+        // All defender vassals set their relation to war with attacking territory
+        List<Territory> defenderVassalTerritories = defendingTerritory.getVassalsInternal();
+        for(var vassalTerritory : defenderVassalTerritories){
+            TerritoryUtil.setRelation(vassalTerritory, attackingTerritory, TownRelation.WAR);
+            if (vassalTerritory.getHierarchyRank() == 1) {
+                List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
+                for(var regionVassalTerritory : regionVassalTerritories){
+                    TerritoryUtil.setRelation(regionVassalTerritory, attackingTerritory, TownRelation.WAR);
+                }
+            }
+        }
+
+        // All attacker vassals set their relation to war with defending territory
+        List<Territory> attackerVassalTerritories = attackingTerritory.getVassalsInternal();
+        for(var vassalTerritory : attackerVassalTerritories){
+            TerritoryUtil.setRelation(vassalTerritory, defendingTerritory, TownRelation.WAR);
+            if (vassalTerritory.getHierarchyRank() == 1) {
+                List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
+                for(var regionVassalTerritory : regionVassalTerritories){
+                    TerritoryUtil.setRelation(regionVassalTerritory, defendingTerritory, TownRelation.WAR);
+                }
+            }
+        }
+
         // If simple war mode is enabled, start an attack as soon as the war is declared and don't stop it until surrender
         if(Constants.isSimpleWarMode()){
             newWar.createPlannedAttack(WarRole.MAIN_ATTACKER, 0, -1);
         }
-
 
         EventManager.getInstance().callEvent(new WarStartInternalEvent(attackingTerritory, defendingTerritory));
         return newWar;

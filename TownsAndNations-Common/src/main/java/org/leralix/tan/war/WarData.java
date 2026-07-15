@@ -49,8 +49,29 @@ public class WarData implements War{
         this.mainDefenderID = mainDefender.getID();
         this.mainAttackerID = mainAttacker.getID();
         this.allDefendersID = new ArrayList<>(mainDefender.getRelations().getTerritoriesIDWithRelation(TownRelation.ALLIANCE));
+        List<Territory> defenderVassalTerritories = mainDefender.getVassalsInternal();
+        for(var vassalTerritory : defenderVassalTerritories){
+            this.allDefendersID.add(vassalTerritory.getID());
+            if (vassalTerritory.getHierarchyRank() == 1) {
+                List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
+                for(var regionVassalTerritory : regionVassalTerritories){
+                    this.allDefendersID.add(regionVassalTerritory.getID());
+                }
+            }
+        }
         this.allDefendersID.add(mainDefenderID);
+
         this.allAttackersID = new ArrayList<>();
+        List<Territory> attackerVassalTerritories = mainAttacker.getVassalsInternal();
+        for(var vassalTerritory : attackerVassalTerritories){
+            this.allAttackersID.add(vassalTerritory.getID());
+            if (vassalTerritory.getHierarchyRank() == 1) {
+                List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
+                for(var regionVassalTerritory : regionVassalTerritories){
+                    this.allAttackersID.add(regionVassalTerritory.getID());
+                }
+            }
+        }
         this.allAttackersID.add(mainAttackerID);
         this.attackGoals = new ArrayList<>();
         this.defenseGoals = new ArrayList<>();
