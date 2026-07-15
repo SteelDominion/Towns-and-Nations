@@ -37,10 +37,14 @@ public class LiberateWarGoal extends WarGoal implements TanLiberateWargoal {
 
     @Override
     public void applyWarGoal(Territory winner, Territory loser) {
-        if(!getTerritoryToLiberate().haveOverlord()){
+        if (loser == null || winner == null)
             return;
+
+        if (winner.getHierarchyRank() == loser.getHierarchyRank() && winner.getHierarchyRank() != 0) {
+            for (Territory vassal : loser.getVassalsInternal()) {
+                vassal.removeOverlord();
+            }
         }
-        getTerritoryToLiberate().removeOverlord();
     }
 
     @Override
