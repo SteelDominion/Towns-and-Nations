@@ -4,7 +4,7 @@ import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.leralix.lib.commands.PlayerSubCommand;
 import org.leralix.tan.TownsAndNations;
-import org.leralix.tan.commands.player.MapCommand;
+//import org.leralix.tan.commands.player.MapCommand;
 import org.leralix.tan.commands.player.TerritoryCommandUtil;
 import org.leralix.tan.data.chunk.IClaimedChunk;
 import org.leralix.tan.data.chunk.LandmarkClaimedChunk;
@@ -87,8 +87,8 @@ public class UnclaimCommand extends PlayerSubCommand {
         if (claimedChunk instanceof TerritoryChunk territoryChunk) {
             territoryChunk.unclaimChunk(player, tanPlayer, langType);
             if (args.length == 4) {
-                var mapCommand = new MapCommand(TownsAndNations.getPlugin().getPlayerDataStorage());
-                mapCommand.openMap(player, new MapSettings(args[0], args[1]));
+                //var mapCommand = new MapCommand(TownsAndNations.getPlugin().getPlayerDataStorage());
+                //mapCommand.openMap(player, new MapSettings(args[0], args[1]));
             }
         }
         else if (claimedChunk instanceof LandmarkClaimedChunk){

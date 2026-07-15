@@ -31,7 +31,7 @@ public class PlayerCommandManager extends CommandManager {
         addSubCommand(new ClaimCommand(playerDataStorage));
         addSubCommand(new EnableBoundaryCommand(playerDataStorage));
         addSubCommand(new UnclaimCommand(playerDataStorage));
-        addSubCommand(new MapCommand(playerDataStorage));
+        //addSubCommand(new MapCommand(playerDataStorage));
         addSubCommand(new SeeBalanceCommand(playerDataStorage));
         addSubCommand(new PayCommand(Constants.getMaxPayRange(), playerDataStorage));
         addSubCommand(new OpenGuiCommand(playerDataStorage));
