@@ -52,6 +52,11 @@ public class TributeWarGoal extends WarGoal implements TanCaptureChunkWargoal {
     }
 
     @Override
+    public String getWarGoalType() {
+        return "Tribute";
+    }
+
+    @Override
     public int getAmount() {
         return dailyAmount;
     }

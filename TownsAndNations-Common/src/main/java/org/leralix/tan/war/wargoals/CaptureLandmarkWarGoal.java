@@ -62,6 +62,11 @@ public class CaptureLandmarkWarGoal extends WarGoal implements TanCaptureLandmar
     }
 
     @Override
+    public String getWarGoalType() {
+        return "CaptureLandmark";
+    }
+
+    @Override
     public String getCurrentDesc(LangType langType) {
         return Lang.GUI_CAPTURE_LANDMARK_CURRENT_DESC.get(langType, getLandmarkToCapture().getName());
     }

@@ -57,6 +57,11 @@ public class CaptureFortWarGoal extends WarGoal implements TanCaptureFortWargoal
     }
 
     @Override
+    public String getWarGoalType() {
+        return "CaptureFort";
+    }
+
+    @Override
     public TanFort getFortToCapture() {
         return getFort();
     }

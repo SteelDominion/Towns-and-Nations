@@ -51,6 +51,11 @@ public class LiberateWarGoal extends WarGoal implements TanLiberateWargoal {
     }
 
     @Override
+    public String getWarGoalType() {
+        return "Liberate";
+    }
+
+    @Override
     public Territory getTerritoryToLiberate() {
         return TerritoryUtil.getTerritory(territoryToLiberateID);
     }
