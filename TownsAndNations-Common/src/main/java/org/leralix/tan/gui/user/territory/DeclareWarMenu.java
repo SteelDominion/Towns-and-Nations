@@ -47,7 +47,9 @@ public class DeclareWarMenu extends IteratorGUI {
         List<GuiItem> res = new ArrayList<>();
 
         for (Territory iterateTerritory : territoryData.getRelations().getTerritoriesWithRelation(TownRelation.WAR)) {
-            res.add(getDeclareWarButton(iterateTerritory));
+            if (territoryData.getHierarchyRank() == iterateTerritory.getHierarchyRank()) {
+                res.add(getDeclareWarButton(iterateTerritory));
+            }
         }
         return res;
     }
