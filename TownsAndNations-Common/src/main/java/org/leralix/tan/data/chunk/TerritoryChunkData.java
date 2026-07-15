@@ -86,7 +86,7 @@ public abstract class TerritoryChunkData extends ChunkData implements TerritoryC
     @Override
     protected void playerCantPerformAction(Player player, LangType langType) {
         TanChatUtils.message(player, Lang.PLAYER_ACTION_NO_PERMISSION.get());
-        TanChatUtils.message(player, Lang.CHUNK_BELONGS_TO.get(getOwner().getName()));
+        TanChatUtils.message(player, Lang.CHUNK_BELONGS_TO.get(getOwnerInternal().getColoredName()));
     }
 
     @Override
