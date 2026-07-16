@@ -205,7 +205,7 @@ public class CaptureManager {
         Territory mainAttacker = warEnded.getMainAttacker();
         
         for(TerritoryChunk territoryChunk : TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(mainAttacker)){
-            if(territoryChunk.isOccupied() && territoryChunk.getOccupierID().equals(mainDefender.getID())){
+            if(territoryChunk.isOccupied() && territoryChunk.getOccupierID().equals(mainAttacker.getID())){
                 territoryChunk.liberate();
             }
         }
