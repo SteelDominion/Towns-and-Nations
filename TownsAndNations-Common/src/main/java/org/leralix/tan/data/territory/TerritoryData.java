@@ -767,6 +767,20 @@ public abstract class TerritoryData implements TanTerritory, Territory {
         return TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(this).size();
     }
 
+    //Includes number of claimed chunks including the territory and its vassals
+    public int getNumberOfClaimedChunkVassals() {
+        int totalTerritoryChunks = TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(this).size();
+        for (Territory vassal : this.getVassalsInternal()) {
+            totalTerritoryChunks += TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(vassal).size();
+            if (vassal.getHierarchyRank() != 0) {
+                for (Territory regionVassal : vassal.getVassalsInternal()) {
+                    totalTerritoryChunks += TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(regionVassal).size();
+                }
+            }
+        }
+        return totalTerritoryChunks;
+    }
+
     @Override
     public double getTax() {
         return baseTax;
@@ -1034,6 +1048,22 @@ public abstract class TerritoryData implements TanTerritory, Territory {
                 count++;
             }
         }
+        for (Territory vassal : this.getVassalsInternal()) {
+            for (TerritoryChunk territoryChunk : TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(vassal)) {
+                if (territoryChunk.isOccupied()) {
+                    count++;
+                }
+            }
+            if (vassal.getHierarchyRank() != 0) {
+                for (Territory regionVassal : vassal.getVassalsInternal()) {
+                    for (TerritoryChunk territoryChunk : TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(regionVassal)) {
+                        if (territoryChunk.isOccupied()) {
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
         return count;
     }
 
@@ -1043,7 +1073,7 @@ public abstract class TerritoryData implements TanTerritory, Territory {
      */
     @Override
     public void checkIfShouldSurrender() {
-        int totalChunk = getNumberOfClaimedChunk();
+        int totalChunk = getNumberOfClaimedChunkVassals();
         int occupiedChunk = getNumberOfOccupiedChunk();
 
         int ratio;
