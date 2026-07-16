@@ -203,17 +203,55 @@ public class CaptureManager {
         }
 
         Territory mainAttacker = warEnded.getMainAttacker();
-        Territory mainDefender = warEnded.getMainDefender();
-
+        
         for(TerritoryChunk territoryChunk : TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(mainAttacker)){
             if(territoryChunk.isOccupied() && territoryChunk.getOccupierID().equals(mainDefender.getID())){
                 territoryChunk.liberate();
             }
         }
 
+        List<Territory> attackerVassalTerritories = mainAttacker.getVassalsInternal();
+        for(var vassalTerritory : attackerVassalTerritories){
+            for(TerritoryChunk territoryChunk : TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(vassalTerritory)){
+                if(territoryChunk.isOccupied() && territoryChunk.getOccupierID().equals(vassalTerritory.getID())){
+                    territoryChunk.liberate();
+                }
+            }
+            if (vassalTerritory.getHierarchyRank() == 1) {
+                List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
+                for(var regionVassalTerritory : regionVassalTerritories){
+                    for(TerritoryChunk territoryChunk : TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(regionVassalTerritory)){
+                        if(territoryChunk.isOccupied() && territoryChunk.getOccupierID().equals(regionVassalTerritory.getID())){
+                            territoryChunk.liberate();
+                        }
+                    }
+                }
+            }
+        }
+
+        Territory mainDefender = warEnded.getMainDefender();
         for(TerritoryChunk territoryChunk : TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(mainDefender)){
             if(territoryChunk.isOccupied() && territoryChunk.getOccupierID().equals(mainAttacker.getID())){
                 territoryChunk.liberate();
+            }
+        }
+
+        List<Territory> defenderVassalTerritories = mainDefender.getVassalsInternal();
+        for(var vassalTerritory : defenderVassalTerritories){
+            for(TerritoryChunk territoryChunk : TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(vassalTerritory)){
+                if(territoryChunk.isOccupied() && territoryChunk.getOccupierID().equals(vassalTerritory.getID())){
+                    territoryChunk.liberate();
+                }
+            }
+            if (vassalTerritory.getHierarchyRank() == 1) {
+                List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
+                for(var regionVassalTerritory : regionVassalTerritories){
+                    for(TerritoryChunk territoryChunk : TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(regionVassalTerritory)){
+                        if(territoryChunk.isOccupied() && territoryChunk.getOccupierID().equals(regionVassalTerritory.getID())){
+                            territoryChunk.liberate();
+                        }
+                    }
+                }
             }
         }
     }
