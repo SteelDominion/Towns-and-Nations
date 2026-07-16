@@ -134,31 +134,31 @@ public class WarData implements War{
     }
 
     @Override
-    public void territorySurrender(WarRole loserTerritory) {
+    public void territorySurrender(WarRole looserTerritory) {
 
-        Territory loser = getTerritory(loserTerritory);
-        Territory winner = getTerritory(loserTerritory.opposite());
+        Territory looser = getTerritory(looserTerritory);
+        Territory winner = getTerritory(looserTerritory.opposite());
 
         // All chunks captured due to the war are now released
         CaptureManager.getInstance().removeCapture(this);
 
-        List<WarGoal> goals = getGoals(loserTerritory.opposite());
+        List<WarGoal> goals = getGoals(looserTerritory.opposite());
 
         Boolean nationFallen = false;
 
         for (WarGoal goal : goals) {
-            goal.applyWarGoal(winner, loser);
+            goal.applyWarGoal(winner, looser);
             String warGoalType = goal.getWarGoalType();
-            if (warGoalType != null && (warGoalType == "Subjugation" || warGoalType == "Liberate")) {
+            if (warGoalType != null && warGoalType == "Subjugation") {
                 nationFallen = true;
             }
         }
 
-        EventManager.getInstance().callEvent(new WarEndInternalEvent(winner, loser, goals));
+        EventManager.getInstance().callEvent(new WarEndInternalEvent(winner, looser, goals));
 
         endWar();
         if (nationFallen == true) {
-            loser.delete();
+            looser.delete();
         }
     }
 
