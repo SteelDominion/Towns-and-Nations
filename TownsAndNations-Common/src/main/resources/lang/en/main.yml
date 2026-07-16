@@ -114,7 +114,7 @@ language:
   GUI_NATION_KICK_REGION_BROADCAST: "§fThe region §b{0}§f has been kicked from the nation"
   #Claim chunk command
   CLAIM_CHUNK_COMMAND_DESC: "Claim a chunk"
-  CHUNK_ALREADY_CLAIMED_WARNING: "§cThis chunk is already claimed by: §9{0}"
+  CHUNK_ALREADY_CLAIMED_WARNING: "§cThis chunk is already claimed."
   CANNOT_CLAIM_LANDMARK: "§cYou cannot claim a landmark chunk"
   CHUNK_BIOME_NOT_ALLOWED: "§cYou cannot claim chunks in this biome."
   CHUNK_IN_BUFFER_ZONE: "§cYou cannot claim a first chunk too close to another territory (minimum §e{0}§c chunks away)"
