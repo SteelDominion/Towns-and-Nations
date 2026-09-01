@@ -116,6 +116,8 @@ public class CaptureChunk {
         }
     }
 
+//BOOKMARK
+// More Attackers vs Defenders = faster capture
     private void updateScore() {
         if (attackers.size() > defenders.size()) {
             score += 1;
@@ -170,6 +172,7 @@ public class CaptureChunk {
         War war = currentAttack.getAttackData().getWar();
 
         WarRole warRole = war.getTerritoryRole(territoryChunk.getOccupierInternal());
+        
         return switch (warRole) {
             case MAIN_ATTACKER, OTHER_ATTACKER -> war.getMainDefender();
             case MAIN_DEFENDER, OTHER_DEFENDER, NEUTRAL -> war.getMainAttacker();
