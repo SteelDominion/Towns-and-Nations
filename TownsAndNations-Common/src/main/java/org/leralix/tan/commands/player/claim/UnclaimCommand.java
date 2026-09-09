@@ -4,7 +4,7 @@ import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.leralix.lib.commands.PlayerSubCommand;
 import org.leralix.tan.TownsAndNations;
-//import org.leralix.tan.commands.player.MapCommand;
+import org.leralix.tan.commands.player.MapCommand;
 import org.leralix.tan.commands.player.TerritoryCommandUtil;
 import org.leralix.tan.data.chunk.IClaimedChunk;
 import org.leralix.tan.data.chunk.LandmarkClaimedChunk;
