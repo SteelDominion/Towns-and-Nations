@@ -62,7 +62,7 @@ public abstract class AbstractWarMenu extends BasicGui {
     }
 
     private List<FilledLang> getCapitulationProgress(Territory territoryData) {
-        int totalChunk = territoryData.getNumberOfClaimedChunk();
+        int totalChunk = territoryData.getNumberOfClaimedChunkVassals();
         int occupiedChunk = territoryData.getNumberOfOccupiedChunk();
 
         int ratio;
