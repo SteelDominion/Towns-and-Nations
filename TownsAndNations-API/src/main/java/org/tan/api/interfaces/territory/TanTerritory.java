@@ -85,6 +85,11 @@ public interface TanTerritory {
     int getNumberOfClaimedChunk();
 
     /**
+     * @return the number of claimed chunks in the territory and its vassals
+     */
+    int getNumberOfClaimedChunkVassals();
+
+    /**
      * @return The number of claimed chunks of this territory
      */
     Collection<TanClaimedChunk> getClaimedChunks();
