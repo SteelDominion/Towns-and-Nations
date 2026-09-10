@@ -165,6 +165,32 @@ public class WarData implements War{
     @Override
     public void endWar() {
         TerritoryUtil.setRelation(getMainAttacker(), getMainDefender(), Constants.getRelationAfterSurrender());
+
+        Territory defendingTerritory = getMainDefender();
+        Territory attackingTerritory = getMainAttacker();
+
+        List<Territory> defenderVassalTerritories = defendingTerritory.getVassalsInternal();
+        for(var vassalTerritory : defenderVassalTerritories){
+            TerritoryUtil.setRelation(vassalTerritory, attackingTerritory, TownRelation.NEUTRAL);
+            if (vassalTerritory.getHierarchyRank() == 1) {
+                List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
+                for(var regionVassalTerritory : regionVassalTerritories){
+                    TerritoryUtil.setRelation(regionVassalTerritory, attackingTerritory, TownRelation.NEUTRAL);
+                }
+            }
+        }
+
+        List<Territory> attackerVassalTerritories = attackingTerritory.getVassalsInternal();
+        for(var vassalTerritory : attackerVassalTerritories){
+            TerritoryUtil.setRelation(vassalTerritory, defendingTerritory, TownRelation.NEUTRAL);
+            if (vassalTerritory.getHierarchyRank() == 1) {
+                List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
+                for(var regionVassalTerritory : regionVassalTerritories){
+                    TerritoryUtil.setRelation(regionVassalTerritory, defendingTerritory, TownRelation.NEUTRAL);
+                }
+            }
+        }
+
         for (PlannedAttack plannedAttack : getPlannedAttacks()) {
             plannedAttack.end(new AttackResultCancelled());
         }
