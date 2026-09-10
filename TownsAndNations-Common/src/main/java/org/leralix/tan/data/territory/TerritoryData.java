@@ -768,6 +768,7 @@ public abstract class TerritoryData implements TanTerritory, Territory {
     }
 
     //Includes number of claimed chunks including the territory and its vassals
+    @Override
     public int getNumberOfClaimedChunkVassals() {
         int totalTerritoryChunks = TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(this).size();
         for (Territory vassal : this.getVassalsInternal()) {
