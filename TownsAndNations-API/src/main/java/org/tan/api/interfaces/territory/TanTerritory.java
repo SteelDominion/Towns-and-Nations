@@ -95,6 +95,11 @@ public interface TanTerritory {
     Collection<TanClaimedChunk> getClaimedChunks();
 
     /**
+     * @return The number of occupied chunks of this territory
+     */
+    Collection<TanClaimedChunk> getOccupiedChunks();
+
+    /**
      * @return the members of the territory
      */
     Collection<TanPlayer> getMembers();

@@ -142,15 +142,19 @@ public abstract class TerritoryDatabase<T extends TerritoryData> implements Terr
         return data.getNumberOfClaimedChunk();
     }
 
-        @Override
+    @Override
     public int getNumberOfClaimedChunkVassals() {
         return data.getNumberOfClaimedChunkVassals();
     }
 
-
     @Override
     public Collection<TanClaimedChunk> getClaimedChunks() {
         return data.getClaimedChunks();
+    }
+
+    @Override
+    public Collection<TanClaimedChunk> getOccupiedChunks() {
+        return data.getOccupiedChunks();
     }
 
     @Override

@@ -178,6 +178,20 @@ public abstract class TerritoryData implements TanTerritory, Territory {
     }
 
     @Override
+    public Collection<TanClaimedChunk> getOccupiedChunks() {
+        Collection<TerritoryChunk> ChunkList = TownsAndNations.getPlugin().getClaimStorage().getAllChunkFrom(this);
+        Collection<TanClaimedChunk> OccupiedChunkList = new ArrayList<>();
+
+        for (TerritoryChunk chunk : ChunkList) {
+            if (chunk.isOccupied()) {
+                OccupiedChunkList.add(chunk);
+            }
+        }
+
+        return OccupiedChunkList;
+    }
+
+    @Override
     public boolean canPlayerDoAction(TanPlayer player, TerritoryPermission permission) {
         return doesPlayerHavePermission(
                 TownsAndNations.getPlugin().getPlayerDataStorage().get(player.getID()),
