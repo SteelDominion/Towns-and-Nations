@@ -38,7 +38,11 @@ public class AdminManageAttacks extends IteratorGUI {
                     .setAction(action -> {
                         if (!plannedAttack.isAdminApproved()) {
                             if (action.isLeftClick()) {
+                                if (plannedAttack.isCancelled()){
+                                    return;
+                                };
                                 plannedAttack.setAdminApproved(true);
+                                plannedAttack.updateStatus();
                             } else if (action.isRightClick()) {
                                 plannedAttack.end(new AttackResultCancelled());
                             }

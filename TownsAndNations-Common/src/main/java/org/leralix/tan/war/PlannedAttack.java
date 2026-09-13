@@ -149,6 +149,9 @@ public class PlannedAttack {
         long timeLeftBeforeStart = (long) ((startTime - currentTime) * 0.02);
         long timeLeftBeforeWarning = timeLeftBeforeStart - 1200; //Warning 1 minute before
 
+        if (!isAdminApproved()){
+            return;
+        }
 
         if (timeLeftBeforeStart <= 0) {
             startAttack();
@@ -281,7 +284,7 @@ public class PlannedAttack {
      */
     public void updateStatus() {
         // If in progress, start the attack until the preselected end date
-        if(isInstantInAttack(System.currentTimeMillis())){
+        if(isInstantInAttack(System.currentTimeMillis()) && isAdminApproved()){
             startAttack();
             return;
         }
