@@ -171,22 +171,22 @@ public class WarData implements War{
 
         List<Territory> defenderVassalTerritories = defendingTerritory.getVassalsInternal();
         for(var vassalTerritory : defenderVassalTerritories){
-            TerritoryUtil.setRelation(vassalTerritory, attackingTerritory, TownRelation.NEUTRAL);
+            TerritoryUtil.setRelation(vassalTerritory, attackingTerritory, Constants.getRelationAfterSurrender());
             if (vassalTerritory.getHierarchyRank() == 1) {
                 List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
                 for(var regionVassalTerritory : regionVassalTerritories){
-                    TerritoryUtil.setRelation(regionVassalTerritory, attackingTerritory, TownRelation.NEUTRAL);
+                    TerritoryUtil.setRelation(regionVassalTerritory, attackingTerritory, Constants.getRelationAfterSurrender());
                 }
             }
         }
 
         List<Territory> attackerVassalTerritories = attackingTerritory.getVassalsInternal();
         for(var vassalTerritory : attackerVassalTerritories){
-            TerritoryUtil.setRelation(vassalTerritory, defendingTerritory, TownRelation.NEUTRAL);
+            TerritoryUtil.setRelation(vassalTerritory, defendingTerritory, Constants.getRelationAfterSurrender());
             if (vassalTerritory.getHierarchyRank() == 1) {
                 List<Territory> regionVassalTerritories = vassalTerritory.getVassalsInternal();
                 for(var regionVassalTerritory : regionVassalTerritories){
-                    TerritoryUtil.setRelation(regionVassalTerritory, defendingTerritory, TownRelation.NEUTRAL);
+                    TerritoryUtil.setRelation(regionVassalTerritory, defendingTerritory, Constants.getRelationAfterSurrender());
                 }
             }
         }
